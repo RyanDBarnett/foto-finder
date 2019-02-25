@@ -16,3 +16,7 @@ label {color: #938284}
   margin: 1em 0;
   cursor: pointer;
 }
+
+.btn:hover {
+  background: #938284;
+}
