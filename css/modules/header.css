@@ -23,9 +23,30 @@
 }
 
 .search {
-  padding: 0 10px;
+  position: relative;
+  background: #938284;
+  border: 2px solid #938284;
   border-radius: 5px;
-  height: 1em;
-  font-size: 20px;
   margin: 1em;
+  overflow: hidden;
+}
+
+.search input {
+  padding: 0.5em 10px;
+  font-size: 20px;
+  border: 0;
+}
+
+.search .fa-search {
+  cursor: pointer;
+  background: #938284;
+  height: 75px;
+  box-sizing: content-box;
+  padding: 0 10px;
+  color: white;
+  font-size: 25px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }

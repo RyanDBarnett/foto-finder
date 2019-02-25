@@ -11,7 +11,7 @@
   margin: 1em 0;
 }
 
-.image-input {
+#image-input {
   cursor: inherit;
   font-size: 999px;
   min-height: 100%;

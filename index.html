@@ -8,11 +8,16 @@
   <link rel="stylesheet" href="css/modules/header.css">
   <link rel="stylesheet" href="css/modules/input-form.css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
 </head>
 <body>
   <header class="header">
     <h1 class="logo-text">Foto<img class="logo" src="media/foto-finder-logo.svg" alt="foto finder camera logo" /> Finder</h1>
-    <input class="search" type="text" placeholder="Search"/>
+    <div class="search">
+      <input placeholder="Search">
+      <span class="fa fa-search"></span>
+    </div>
+    <!-- <input class="search" type="text" placeholder="Search"/> -->
   </header>
   <main>
     <form class="form">
@@ -20,9 +25,8 @@
       <input type="text" name="title" class="title input-text">
       <label for="caption">Caption</label>
       <input type="text" name="caption" class="caption input-text">
-      <label for="image-input" class="image-input-label btn">
-        Choose File
-        <input type="file" class="image-input" name="image-upload" accept="image/*" value="Choose File">
+      <label for="image-input" class="image-input-label btn">Choose File
+        <input type="file" id="image-input" name="image-upload" accept="image/*" value="Choose File">
       </label>
       <div class="input-bottom">
         <button class="favorites btn">View 1 Favorites</button>
