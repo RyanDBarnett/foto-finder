@@ -29,6 +29,7 @@ figcaption {
 }
 
 .card img {
+  height: 162px;
   width: 100%;
 }
 

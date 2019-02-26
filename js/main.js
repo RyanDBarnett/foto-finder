@@ -1,5 +1,7 @@
 const addPhotoBtn = document.querySelector('.add-photo');
 const cardsContainer = document.querySelector('.cards-container');
+const addPhotoBtn = document.querySelector('.add-photo');
+const fileInput = document.querySelector('#image-input');
 const reader = new FileReader();
 
 let album = JSON.parse(localStorage.getItem('album')) || [];
@@ -9,6 +11,7 @@ addPhotoBtn.addEventListener('click', loadImg);
 cardsContainer.addEventListener('click', clickHandler);
 cardsContainer.addEventListener('mouseover', mouseOverHandler);
 cardsContainer.addEventListener('mouseout', mouseOutHandler);
+fileInput.addEventListener( 'change', updateFileInputLabel);
 
 function onLoad() {
   var oldAlbum = album;
@@ -21,7 +24,7 @@ function onLoad() {
   var favBtns = cardsContainer.querySelectorAll('.favorite');
   favBtns.forEach( (btn) => {
     if (JSON.parse(btn.dataset.favorite)) {
-      activate(btn);
+      activateFav(btn);
       addToFavCount();
     }
   });
@@ -29,8 +32,7 @@ function onLoad() {
 
 function loadImg(e) {
   e.preventDefault();
-  var imageInput = document.querySelector('#image-input');
-  if (imageInput.files[0]) {
+  if (fileInput.files[0]) {
     reader.readAsDataURL(imageInput.files[0]); 
     reader.onload = addPhoto;
   }
@@ -68,6 +70,18 @@ function createCard(photo) {
         </footer>
       </section>`
   cardsContainer.innerHTML += card;
+}
+
+function updateFileInputLabel(e) {
+  let label  = fileInput.parentElement;
+  let labelVal = label.innerText;
+  let fileName = '';
+  
+  if (this.files) {
+    fileName = e.target.value;
+  }
+
+  fileName ? label.querySelector( 'span' ).innerHTML = fileName : label.innerHTML = labelVal;
 }
 
 function clickHandler(e) {
@@ -110,7 +124,7 @@ function favoritePhoto(favBtn) {
   toggleFavoriteDataAttr(favBtn);
   let ifFavorited = JSON.parse(favBtn.dataset.favorite);
   changeFavoriteCounter(ifFavorited);
-  ifFavorited ? activate(favBtn) : deactivate(favBtn);
+  ifFavorited ? activateFav(favBtn) : deactivateFav(favBtn);
 }
 
 function toggleFavoriteDataAttr(favBtn) {
@@ -123,19 +137,19 @@ function changeFavoriteCounter(ifFav) {
 
 function mouseOverHandler(e) {
   if (deleteBtn(e)) {
-    activate(e.target);
+    activateDelete(e.target);
   }
   if (favoriteBtn(e)) {
-    activate(e.target);
+    activateFav(e.target);
   }
 }
 
 function mouseOutHandler(e) {
   if (e.target.className === 'delete') {
-    deactivate(e.target);
+    deactivateDelete(e.target);
   }
   if (e.target.className === 'favorite') {
-    deactivate(e.target);
+    deactivateFav(e.target);
   }
 }
 
@@ -154,22 +168,22 @@ function minusFavCount() {
   favCountElement.innerHTML = count;
 }
 
-function activate(element) {
-  var src = element.getAttribute('src').split('.');
-  if (!src[0].includes('-')) {
-    element.setAttribute('src', `${src[0]}-active.svg`);
+function activateFav(element) {
+  element.setAttribute('src', `media/favorite-active.svg`);
+}
+
+function deactivateFav(element) {
+  if (!JSON.parse(element.dataset.favorite)) {
+    element.setAttribute('src', `media/delete.svg`);
   }
 }
 
-function deactivate(element) {
-  var favorite = false;
-  if (element.dataset.favorite) {
-    favorite = JSON.parse(element.dataset.favorite);
-  }
-  var src = element.getAttribute('src').split('-');
-  if (!favorite && !src[0].includes('.svg')) {
-    element.setAttribute('src', `${src[0]}.svg`);
-  }
+function activateDelete(element) {
+  element.setAttribute('src', `media/delete-active.svg`);
+}
+
+function deactivateDelete(element) {
+  element.setAttribute('src', `media/delete.svg`);
 }
 
 function findPhoto(id) {
