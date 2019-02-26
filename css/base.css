@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+}
+
+main {background: #3E2A35;}
+
+label {color: #938284}
+
+.btn {
+  background: #5B4447;
+  border: 0;
+  color: #fff;
+  padding: 1em 0;
+  text-align: center;
+  margin: 1em 0;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #938284;
+}

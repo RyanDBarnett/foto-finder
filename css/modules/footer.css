@@ -1,0 +1,42 @@
+.cards-container {
+  padding: 1% 5%;
+  background: #C2B2B4;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 21%;
+  background: white;
+  margin: 2% 2%;
+  border: 2px solid #938284;
+}
+
+.card h2, .card figcaption {
+  font-size: 20px;
+  color: #3E2A35;
+  margin: 1em;
+  font-weight: 600;
+}
+
+.card figure {
+  margin: 0;
+}
+
+.card img {
+  width: 100%;
+}
+
+.card footer {
+  display: flex;
+  background: #5B4447;
+  justify-content: space-between;
+  padding: 0 1em;
+}
+
+.card footer img {
+  width: 40px;
+  height: 40px;
+  margin: 1em 0;
+  cursor: pointer;
+}
