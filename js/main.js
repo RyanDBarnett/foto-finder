@@ -37,8 +37,8 @@ function loadImg(e) {
 }
 
 function addPhoto(e) {
-  var title = document.querySelector('.title');
-  var caption = document.querySelector('.caption');
+  var title = document.querySelector('#title');
+  var caption = document.querySelector('#caption');
   var newPhoto = new Photo(title.value, caption.value, e.target.result, Date.now());
 
   album.push(newPhoto);

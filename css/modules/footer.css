@@ -23,6 +23,11 @@
   margin: 0;
 }
 
+figcaption {
+  height: 100px;
+  overflow: scroll;
+}
+
 .card img {
   width: 100%;
 }
