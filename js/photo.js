@@ -11,14 +11,16 @@ class Photo {
     localStorage.setItem('album', JSON.stringify(album));
   }
 
-  deleteFromStorage(id) {
-    var i = album.findIndex( (photo) => photo.id === id);
+  deleteFromStorage() {
+    var i = album.findIndex( (photo) => photo.id === this.id);
     album.splice(i, 1);
+    this.saveToStorage();
   }
 
   // updatePhoto() {}
 
   toggleFavorite() {
     this.favorite = !this.favorite;
+    this.saveToStorage();
   }
 }
