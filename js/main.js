@@ -8,20 +8,42 @@ let album = JSON.parse(localStorage.getItem('album')) || [];
 
 window.addEventListener('load', onLoad);
 addPhotoBtn.addEventListener('click', loadImg);
-favoriteButton.addEventListener('click', filterFavorites);
+favoriteButton.addEventListener('click', toggleViewFavs);
 cardsContainer.addEventListener('click', clickHandler);
 cardsContainer.addEventListener('mouseover', mouseOverHandler);
 cardsContainer.addEventListener('mouseout', mouseOutHandler);
 fileInput.addEventListener( 'change', updateFileInputLabel);
 
-function filterFavorites(e) {
+function toggleViewFavs(e) {
   e.preventDefault();
+  let btn = e.target;
+  let showingAll = JSON.parse(btn.dataset.showing);
+  showingAll = !showingAll;
   clearCards();
-  for (var i = 0; i < album.length; i++) {
+  btn.dataset.showing = showingAll;
+  showingAll ? showAllCards() : showFavoritedCards();
+  toggleBtnText(btn, showingAll);
+}
+
+function showFavoritedCards() {
+  for (let i = 0; i < album.length; i++) {
     if (album[i].favorite) {
       createCard(album[i]);
     }
   }
+}
+
+function showAllCards() {
+  for (let i = 0; i < album.length; i++) {
+    createCard(album[i]);
+  }
+}
+
+function toggleBtnText(btn, showingAll) {
+  let count = btn.querySelector('span').dataset.favnum
+  let showAllText = `Show All<span data-favnum="${count}" class="total-favorites"></span>`;
+  let viewFavsText = `View <span data-favnum="${count}" class="total-favorites">${count}</span> Favorites`;
+  btn.innerHTML = showingAll ? viewFavsText : showAllText;
 }
 
 function clearCards() {
@@ -34,17 +56,17 @@ function onLoad() {
 }
 
 function recreatePhotos() {
-  var oldAlbum = album;
+  let oldAlbum = album;
   album = [];
   oldAlbum.forEach( (photo) => {
-    var recreatedPhoto = new Photo(photo.title, photo.caption, photo.image, photo.id, photo.favorite);
+    let recreatedPhoto = new Photo(photo.title, photo.caption, photo.image, photo.id, photo.favorite);
     album.push(recreatedPhoto);
     createCard(recreatedPhoto);
   });
 }
 
 function countFavorites() {
-  var favBtns = cardsContainer.querySelectorAll('.favorite');
+  let favBtns = cardsContainer.querySelectorAll('.favorite');
   favBtns.forEach( (btn) => {
     if (JSON.parse(btn.dataset.favorite)) {
       addToFavCount();
@@ -61,9 +83,9 @@ function loadImg(e) {
 }
 
 function addPhoto(e) {
-  var title = document.querySelector('#title');
-  var caption = document.querySelector('#caption');
-  var newPhoto = new Photo(title.value, caption.value, e.target.result, Date.now());
+  let title = document.querySelector('#title');
+  let caption = document.querySelector('#caption');
+  let newPhoto = new Photo(title.value, caption.value, e.target.result, Date.now());
 
   album.push(newPhoto);
   createCard(newPhoto);
@@ -181,15 +203,17 @@ function addToFavCount() {
   const favCountElement = document.querySelector('.total-favorites');
   let count = Number(favCountElement.innerHTML);
   count++;
+  favCountElement.dataset.favnum = count;
   favCountElement.innerHTML = count;
 
 }
 
 function minusFavCount() {
   const favCountElement = document.querySelector('.total-favorites');
-  let count = Number(favCountElement.innerHTML);
+  let count = Number(favCountElement.dataset.favnum);
   count--;
-  favCountElement.innerHTML = count;
+  favCountElement.dataset.favnum = count;
+  if (JSON.parse(favCountElement.parentElement.dataset.showing)) favCountElement.innerHTML = count;
 }
 
 function activateFav(element) {
