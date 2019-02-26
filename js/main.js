@@ -32,7 +32,7 @@ function onLoad() {
 function loadImg(e) {
   e.preventDefault();
   if (fileInput.files[0]) {
-    reader.readAsDataURL(imageInput.files[0]); 
+    reader.readAsDataURL(fileInput.files[0]); 
     reader.onload = addPhoto;
   }
 }
