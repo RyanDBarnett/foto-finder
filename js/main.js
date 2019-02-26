@@ -1,4 +1,5 @@
 const addPhotoBtn = document.querySelector('.add-photo');
+const favoriteButton = document.querySelector('.favorites');
 const cardsContainer = document.querySelector('.cards-container');
 const fileInput = document.querySelector('#image-input');
 const reader = new FileReader();
@@ -7,12 +8,32 @@ let album = JSON.parse(localStorage.getItem('album')) || [];
 
 window.addEventListener('load', onLoad);
 addPhotoBtn.addEventListener('click', loadImg);
+favoriteButton.addEventListener('click', filterFavorites);
 cardsContainer.addEventListener('click', clickHandler);
 cardsContainer.addEventListener('mouseover', mouseOverHandler);
 cardsContainer.addEventListener('mouseout', mouseOutHandler);
 fileInput.addEventListener( 'change', updateFileInputLabel);
 
+function filterFavorites(e) {
+  e.preventDefault();
+  clearCards();
+  for (var i = 0; i < album.length; i++) {
+    if (album[i].favorite) {
+      createCard(album[i]);
+    }
+  }
+}
+
+function clearCards() {
+  cardsContainer.innerHTML = '';
+}
+
 function onLoad() {
+  recreatePhotos();
+  countFavorites();
+}
+
+function recreatePhotos() {
   var oldAlbum = album;
   album = [];
   oldAlbum.forEach( (photo) => {
@@ -20,10 +41,12 @@ function onLoad() {
     album.push(recreatedPhoto);
     createCard(recreatedPhoto);
   });
+}
+
+function countFavorites() {
   var favBtns = cardsContainer.querySelectorAll('.favorite');
   favBtns.forEach( (btn) => {
     if (JSON.parse(btn.dataset.favorite)) {
-      activateFav(btn);
       addToFavCount();
     }
   });
@@ -55,6 +78,8 @@ function clearInput(element) {
 }
 
 function createCard(photo) {
+
+  var src = photo.favorite ? `media/favorite-active.svg` : `media/favorite.svg`;
   var card = `<section class="card" data-id="${photo.id}">
         <h2 contenteditable="true">${photo.title}</h2>
         <figure>
@@ -65,7 +90,7 @@ function createCard(photo) {
         </figure>
         <footer>
           <img class="delete" src="media/delete.svg" alt="delete button"/>
-          <img class="favorite" data-favorite="${photo.favorite}" src="media/favorite.svg" alt="favorite button"/>
+          <img class="favorite" data-favorite="${photo.favorite}" src="${src}" alt="favorite button"/>
         </footer>
       </section>`
   cardsContainer.innerHTML += card;
@@ -173,7 +198,7 @@ function activateFav(element) {
 
 function deactivateFav(element) {
   if (!JSON.parse(element.dataset.favorite)) {
-    element.setAttribute('src', `media/delete.svg`);
+    element.setAttribute('src', `media/favorite.svg`);
   }
 }
 
