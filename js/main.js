@@ -1,6 +1,5 @@
 const addPhotoBtn = document.querySelector('.add-photo');
 const cardsContainer = document.querySelector('.cards-container');
-const addPhotoBtn = document.querySelector('.add-photo');
 const fileInput = document.querySelector('#image-input');
 const reader = new FileReader();
 
