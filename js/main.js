@@ -20,83 +20,6 @@ cardsContainer.addEventListener('mouseout', mouseOutHandler);
 cardsContainer.addEventListener('keyup', keyupHandler);
 cardsContainer.addEventListener('focusout', focusoutHandler);
 
-function keyupHandler(e) {
-  let card = e.target.closest('.card');
-  let id = Number(card.dataset.id);
-  let photo = findPhoto(id);
-
-  if (e.which == 13 && e.target.className === 'caption') {
-    photo.caption = e.target.innerText;
-    photo.updatePhoto();
-    e.target.blur();
-  }
-
-  if (e.which == 13 && e.target.className === 'title') {
-    photo.title = e.target.innerText;
-    photo.updatePhoto();
-    e.target.blur();
-  }
-}
-
-function focusoutHandler(e) {
-  let card = e.target.closest('.card');
-  let id = Number(card.dataset.id);
-  let photo = findPhoto(id);
-
-  if (e.target.className === 'caption') {
-    photo.caption = e.target.innerText;
-    photo.updatePhoto();
-  }
-
-  if (e.target.className === 'title') {
-    photo.title = e.target.innerText;
-    photo.updatePhoto();
-  }
-}
-
-function formKeyHandler(e) {
-  let title = document.querySelector('#title').value;
-  let caption = document.querySelector('#caption').value;
-
-  addPhotoBtn.disabled = title || caption ? false : true;
-}
-
-function toggleViewFavs(e) {
-  e.preventDefault();
-  let showingAll = JSON.parse(favoriteButton.dataset.showing);
-  showingAll = !showingAll;
-  clearCards();
-  favoriteButton.dataset.showing = showingAll;
-  showingAll ? showAllCards() : showFavoritedCards();
-  toggleBtnText();
-}
-
-function showFavoritedCards() {
-  for (let i = 0; i < album.length; i++) {
-    if (album[i].favorite) {
-      createCard(album[i]);
-    }
-  }
-}
-
-function showAllCards() {
-  for (let i = 0; i < album.length; i++) {
-    createCard(album[i]);
-  }
-}
-
-function toggleBtnText() {
-  let showingAll = JSON.parse(favoriteButton.dataset.showing)
-  let count = favoriteButton.querySelector('span').dataset.favnum
-  let showAllText = `Show All<span data-favnum="${count}" class="total-favorites"></span>`;
-  let viewFavsText = `View <span data-favnum="${count}" class="total-favorites">${count}</span> Favorites`;
-  favoriteButton.innerHTML = showingAll ? viewFavsText : showAllText;
-}
-
-function clearCards() {
-  cardsContainer.innerHTML = '';
-}
-
 function onLoad() {
   recreatePhotos();
   countFavorites();
@@ -152,8 +75,8 @@ function clearInput(element) {
 
 function createCard(photo) {
 
-  var src = photo.favorite ? `media/favorite-active.svg` : `media/favorite.svg`;
-  var card = `<section class="card" data-id="${photo.id}">
+  let src = photo.favorite ? `media/favorite-active.svg` : `media/favorite.svg`;
+  let card = `<section class="card" data-id="${photo.id}">
         <h2 class="title" contenteditable="true">${photo.title}</h2>
         <figure>
           <img src=${photo.image} />
@@ -167,8 +90,44 @@ function createCard(photo) {
         </footer>
       </section>`
   cardsContainer.insertAdjacentHTML('afterbegin', card);
-  var indication = document.querySelector('.no-photo-indication');
+  let indication = document.querySelector('.no-photo-indication');
   indication.classList.add('hide');
+}
+
+function toggleViewFavs(e) {
+  e.preventDefault();
+  let showingAll = JSON.parse(favoriteButton.dataset.showing);
+  showingAll = !showingAll;
+  clearCards();
+  favoriteButton.dataset.showing = showingAll;
+  showingAll ? showAllCards() : showFavoritedCards();
+  toggleBtnText();
+}
+
+function showFavoritedCards() {
+  for (let i = 0; i < album.length; i++) {
+    if (album[i].favorite) {
+      createCard(album[i]);
+    }
+  }
+}
+
+function showAllCards() {
+  for (let i = 0; i < album.length; i++) {
+    createCard(album[i]);
+  }
+}
+
+function toggleBtnText() {
+  let showingAll = JSON.parse(favoriteButton.dataset.showing)
+  let count = favoriteButton.querySelector('span').dataset.favnum
+  let showAllText = `Show All<span data-favnum="${count}" class="total-favorites"></span>`;
+  let viewFavsText = `View <span data-favnum="${count}" class="total-favorites">${count}</span> Favorites`;
+  favoriteButton.innerHTML = showingAll ? viewFavsText : showAllText;
+}
+
+function clearCards() {
+  cardsContainer.innerHTML = '';
 }
 
 function fileChangeHandler(e) {
@@ -206,7 +165,7 @@ function deleteThe(photo, card) {
   if (photo.favorite) minusFavCount();
   photo.deleteFromStorage();
   card.remove();
-  var indication = document.querySelector('.no-photo-indication');
+  let indication = document.querySelector('.no-photo-indication');
   if(!cardsContainer.children.length) indication.classList.remove('hide');
 }
 
@@ -285,10 +244,51 @@ function findPhoto(id) {
   return album.find( (photo) => photo.id === id);
 }
 
+function keyupHandler(e) {
+  let card = e.target.closest('.card');
+  let id = Number(card.dataset.id);
+  let photo = findPhoto(id);
+
+  if (e.which == 13 && e.target.className === 'caption') {
+    photo.caption = e.target.innerText;
+    photo.updatePhoto();
+    e.target.blur();
+  }
+
+  if (e.which == 13 && e.target.className === 'title') {
+    photo.title = e.target.innerText;
+    photo.updatePhoto();
+    e.target.blur();
+  }
+}
+
+function focusoutHandler(e) {
+  let card = e.target.closest('.card');
+  let id = Number(card.dataset.id);
+  let photo = findPhoto(id);
+
+  if (e.target.className === 'caption') {
+    photo.caption = e.target.innerText;
+    photo.updatePhoto();
+  }
+
+  if (e.target.className === 'title') {
+    photo.title = e.target.innerText;
+    photo.updatePhoto();
+  }
+}
+
+function formKeyHandler(e) {
+  let title = document.querySelector('#title').value;
+  let caption = document.querySelector('#caption').value;
+
+  addPhotoBtn.disabled = title || caption ? false : true;
+}
+
 function searchCards(e){
-  var searchBarText = e.target.value;
-  var regex = new RegExp(searchBarText, "i");
-  var matchingIdeas = [];
+  let searchBarText = e.target.value;
+  let regex = new RegExp(searchBarText, "i");
+  let matchingIdeas = [];
   clearCards();
   for (let i = 0; i < album.length; i++) {
     if(regex.test(album[i].title) || regex.test(album[i].caption)) {
