@@ -291,7 +291,7 @@ function searchCards(e){
   var matchingIdeas = [];
   clearCards();
   for (let i = 0; i < album.length; i++) {
-    if(regex.test(album[i].title) || regex.test(ablum[i].caption)) {
+    if(regex.test(album[i].title) || regex.test(album[i].caption)) {
       matchingIdeas.push(album[i]);
       createCard(album[i]);
     }
