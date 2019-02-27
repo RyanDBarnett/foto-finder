@@ -61,12 +61,6 @@ function formKeyHandler(e) {
   addPhotoBtn.disabled = title || caption ? false : true;
 }
 
-noPhotosIndication();
-
-function noPhotosIndication() {
-  console.log(cardsContainer.children);
-}
-
 function toggleViewFavs(e) {
   e.preventDefault();
   let showingAll = JSON.parse(favoriteButton.dataset.showing);
@@ -212,6 +206,8 @@ function deleteThe(photo, card) {
   if (photo.favorite) minusFavCount();
   photo.deleteFromStorage();
   card.remove();
+  var indication = document.querySelector('.no-photo-indication');
+  if(!cardsContainer.children.length) indication.classList.remove('hide');
 }
 
 function notCard(e) {
