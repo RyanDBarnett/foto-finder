@@ -2,7 +2,7 @@
 
 This is my version of the final project for the first module of the [Turing School of Software and Design](https://https://turing.io/) Front End course. The point of the project was to demonstrate my understanding and mastery of the skills required to build out a front application.
 
-You can visit the live finished version of this project at https://ryandbarnett.github.io/rb-comp-challenge-1/.
+You can visit the live finished version of this project at https://ryandbarnett.github.io/foto-finder/.
 
 ## Key Features
 
