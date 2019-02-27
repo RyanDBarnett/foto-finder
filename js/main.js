@@ -2,6 +2,7 @@ const addPhotoBtn = document.querySelector('.add-photo');
 const favoriteButton = document.querySelector('.favorites');
 const cardsContainer = document.querySelector('.cards-container');
 const fileInput = document.querySelector('#image-input');
+const form = document.querySelector('.form');
 const reader = new FileReader();
 
 let album = JSON.parse(localStorage.getItem('album')) || [];
@@ -12,17 +13,28 @@ favoriteButton.addEventListener('click', toggleViewFavs);
 cardsContainer.addEventListener('click', clickHandler);
 cardsContainer.addEventListener('mouseover', mouseOverHandler);
 cardsContainer.addEventListener('mouseout', mouseOutHandler);
-fileInput.addEventListener( 'change', updateFileInputLabel);
+fileInput.addEventListener( 'change', fileChangeHandler);
+form.addEventListener( 'keyup', keyHandler);
+
+function keyHandler(e) {
+  let title = document.querySelector('#title').value;
+  let caption = document.querySelector('#caption').value;
+
+  if (title || caption) {
+    addPhotoBtn.disabled = false;
+  } else {
+    addPhotoBtn.disabled = true;
+  }
+}
 
 function toggleViewFavs(e) {
   e.preventDefault();
-  let btn = e.target;
-  let showingAll = JSON.parse(btn.dataset.showing);
+  let showingAll = JSON.parse(favoriteButton.dataset.showing);
   showingAll = !showingAll;
   clearCards();
-  btn.dataset.showing = showingAll;
+  favoriteButton.dataset.showing = showingAll;
   showingAll ? showAllCards() : showFavoritedCards();
-  toggleBtnText(btn, showingAll);
+  toggleBtnText();
 }
 
 function showFavoritedCards() {
@@ -39,11 +51,12 @@ function showAllCards() {
   }
 }
 
-function toggleBtnText(btn, showingAll) {
-  let count = btn.querySelector('span').dataset.favnum
+function toggleBtnText() {
+  let showingAll = JSON.parse(favoriteButton.dataset.showing)
+  let count = favoriteButton.querySelector('span').dataset.favnum
   let showAllText = `Show All<span data-favnum="${count}" class="total-favorites"></span>`;
   let viewFavsText = `View <span data-favnum="${count}" class="total-favorites">${count}</span> Favorites`;
-  btn.innerHTML = showingAll ? viewFavsText : showAllText;
+  favoriteButton.innerHTML = showingAll ? viewFavsText : showAllText;
 }
 
 function clearCards() {
@@ -77,8 +90,12 @@ function countFavorites() {
 function loadImg(e) {
   e.preventDefault();
   if (fileInput.files[0]) {
+    let label  = document.querySelector('.image-input-label')
     reader.readAsDataURL(fileInput.files[0]); 
     reader.onload = addPhoto;
+    label.removeChild(label.firstChild);
+    fileInput.insertAdjacentHTML('beforebegin', `Choose File`);
+    addPhotoBtn.disabled = true;
   }
 }
 
@@ -118,16 +135,17 @@ function createCard(photo) {
   cardsContainer.innerHTML += card;
 }
 
-function updateFileInputLabel(e) {
+function fileChangeHandler(e) {
   let label  = fileInput.parentElement;
   let labelVal = label.innerText;
   let fileName = '';
   
   if (this.files) {
-    fileName = e.target.value;
+    fileName = this.value;
+    addPhotoBtn.disabled = false;
   }
-
-  fileName ? label.querySelector( 'span' ).innerHTML = fileName : label.innerHTML = labelVal;
+  label.removeChild(label.firstChild);
+  fileName ? fileInput.insertAdjacentHTML('beforebegin', fileName) : fileInput.insertAdjacentHTML('beforebegin', labelVal);
 }
 
 function clickHandler(e) {
@@ -182,21 +200,13 @@ function changeFavoriteCounter(ifFav) {
 }
 
 function mouseOverHandler(e) {
-  if (deleteBtn(e)) {
-    activateDelete(e.target);
-  }
-  if (favoriteBtn(e)) {
-    activateFav(e.target);
-  }
+  if (deleteBtn(e)) activateDelete(e.target);
+  if (favoriteBtn(e)) activateFav(e.target);
 }
 
 function mouseOutHandler(e) {
-  if (e.target.className === 'delete') {
-    deactivateDelete(e.target);
-  }
-  if (e.target.className === 'favorite') {
-    deactivateFav(e.target);
-  }
+  if (deleteBtn(e)) deactivateDelete(e.target);
+  if (favoriteBtn(e)) deactivateFav(e.target);
 }
 
 function addToFavCount() {
@@ -205,7 +215,6 @@ function addToFavCount() {
   count++;
   favCountElement.dataset.favnum = count;
   favCountElement.innerHTML = count;
-
 }
 
 function minusFavCount() {

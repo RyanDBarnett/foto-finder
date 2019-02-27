@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="css/modules/header.css">
   <link rel="stylesheet" href="css/modules/input-form.css">
   <link rel="stylesheet" href="css/modules/footer.css">
+  <link rel="stylesheet" href="css/media-queries.css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet">
   <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
 </head>
@@ -26,12 +27,12 @@
       <input type="text" name="title" id="title" class="input-text">
       <label for="caption">Caption</label>
       <input type="text" name="caption" id="caption" class="input-text">
-      <label for="image-input" class="image-input-label btn"><span>Choose File</span>
+      <label for="image-input" class="image-input-label btn">Choose File
         <input type="file" id="image-input" name="image-upload" accept="image/*" value="Choose File" />
       </label>
       <div class="input-bottom">
         <button class="favorites btn" data-showing="true">View <span data-favnum="0" class="total-favorites">0</span> Favorites</button>
-        <button class="add-photo btn">Add to Album</button>
+        <button class="add-photo btn" disabled="true">Add to Album</button>
       </div>
     </form>
   </main>
