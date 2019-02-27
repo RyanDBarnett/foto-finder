@@ -29,12 +29,14 @@
   border-radius: 5px;
   margin: 1em;
   overflow: hidden;
+  width: 35%;
 }
 
 .search input {
   padding: 0.5em 10px;
   font-size: 20px;
   border: 0;
+  width: 100%;
 }
 
 .search .fa-search {

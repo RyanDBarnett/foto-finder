@@ -1,0 +1,26 @@
+@media screen and (max-width: 1000px) {
+  .header {
+    flex-direction: column;
+    padding: 0 5%;
+  }
+
+  .logo-text {
+    font-size: 9vw;
+    letter-spacing: 4px;
+    margin: 4vh 0vw;
+  }
+
+  .search {
+    margin: 0;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .form {
+    width: 100%;
+    padding: 10% 5%;
+  }
+
+  /*.btn {
+  }*/
+}
