@@ -1,6 +1,7 @@
 .cards-container {
   background: #C2B2B4;
   display: flex;
+  flex-wrap: wrap;
   padding: 1% 5%;
 }
 
