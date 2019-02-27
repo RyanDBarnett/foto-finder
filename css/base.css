@@ -3,18 +3,22 @@
   font-family: 'Open Sans', sans-serif;
 }
 
-main {background: #3E2A35;}
+main {
+  background: #3E2A35;
+}
 
-label {color: #938284}
+label {
+  color: #938284
+}
 
 .btn {
   background: #5B4447;
   border: 0;
   color: #fff;
+  cursor: pointer;
+  margin: 1em 0;
   padding: 1em 0;
   text-align: center;
-  margin: 1em 0;
-  cursor: pointer;
 }
 
 .btn:hover {

@@ -5,8 +5,8 @@
   }
 
   .form {
-    width: 80%;
     padding: 5% 5%;
+    width: 80%;
   }
 
   .cards-container {
@@ -42,8 +42,8 @@
   }
 
   .cards-container {
-    flex-direction: column;
     align-content: center;
+    flex-direction: column;
   }
 
   .card {

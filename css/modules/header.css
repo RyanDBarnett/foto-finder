@@ -1,52 +1,52 @@
 .header {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   background: #3E2A35;
+  display: flex;
+  justify-content: space-between;
   padding: 0px 3%;
 }
 
 .logo-text {
   color: white;
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 46px;
   display: flex;
+  font-size: 46px;
+  font-weight: 800;
   letter-spacing: 5px;
   margin: .75em;
+  text-transform: uppercase;
 }
 
 .logo {
-  height: 1em;
   align-self: flex-start;
+  height: 1em;
   margin: 0 5px;
 }
 
 .search {
-  position: relative;
   background: #938284;
-  border: 2px solid #938284;
   border-radius: 5px;
+  border: 2px solid #938284;
   margin: 1em;
   overflow: hidden;
+  position: relative;
   width: 35%;
 }
 
 .search input {
-  padding: 0.5em 10px;
-  font-size: 20px;
   border: 0;
+  font-size: 20px;
+  padding: 0.5em 10px;
   width: 100%;
 }
 
 .search .fa-search {
-  cursor: pointer;
   background: #938284;
-  height: 75px;
   box-sizing: content-box;
-  padding: 0 10px;
   color: white;
+  cursor: pointer;
   font-size: 25px;
+  height: 75px;
+  padding: 0 10px;
   position: absolute;
   right: 0;
   top: 50%;
