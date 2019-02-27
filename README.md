@@ -1,6 +1,6 @@
 # Foto Finder
 
-This is the second project I completed during the front end program at the [Turing School of Software and Design](https://https://turing.io/). The point of the project was to recreate a 1-page site to practice writing well structured, semantic HTML with clean, precise CSS.
+This is my version of the final project for the first module of the [Turing School of Software and Design](https://https://turing.io/) Front End course. The point of the project was to demonstrate my understanding and mastery of the skills required to build out a front application.
 
 You can visit the live finished version of this project at https://ryandbarnett.github.io/rb-comp-challenge-1/.
 
@@ -8,6 +8,8 @@ You can visit the live finished version of this project at https://ryandbarnett.
 
 * **Responsive** - The content looks good on any screen size
 * **Flexbox** - Uses flexbox to make layout fluid
+* **LocalStorage** - New photo cards will persist even if the user refreshes the page
+* **Filter by Favorites** - The cards can be filtered by favorites
 
 
 ## Built With
