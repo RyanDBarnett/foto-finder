@@ -10,21 +10,53 @@ let album = JSON.parse(localStorage.getItem('album')) || [];
 window.addEventListener('load', onLoad);
 addPhotoBtn.addEventListener('click', loadImg);
 favoriteButton.addEventListener('click', toggleViewFavs);
+fileInput.addEventListener( 'change', fileChangeHandler);
+form.addEventListener( 'keyup', formKeyHandler);
 cardsContainer.addEventListener('click', clickHandler);
 cardsContainer.addEventListener('mouseover', mouseOverHandler);
 cardsContainer.addEventListener('mouseout', mouseOutHandler);
-fileInput.addEventListener( 'change', fileChangeHandler);
-form.addEventListener( 'keyup', keyHandler);
+cardsContainer.addEventListener('keyup', keyupHandler);
+cardsContainer.addEventListener('focusout', focusoutHandler);
 
-function keyHandler(e) {
+function keyupHandler(e) {
+  let card = e.target.closest('.card');
+  let id = Number(card.dataset.id);
+  let photo = findPhoto(id);
+
+  if (e.which == 13 && e.target.className === 'caption') {
+    photo.caption = e.target.innerText;
+    photo.updatePhoto();
+    e.target.blur();
+  }
+
+  if (e.which == 13 && e.target.className === 'title') {
+    photo.title = e.target.innerText;
+    photo.updatePhoto();
+    e.target.blur();
+  }
+}
+
+function focusoutHandler(e) {
+  let card = e.target.closest('.card');
+  let id = Number(card.dataset.id);
+  let photo = findPhoto(id);
+
+  if (e.target.className === 'caption') {
+    photo.caption = e.target.innerText;
+    photo.updatePhoto();
+  }
+
+  if (e.target.className === 'title') {
+    photo.title = e.target.innerText;
+    photo.updatePhoto();
+  }
+}
+
+function formKeyHandler(e) {
   let title = document.querySelector('#title').value;
   let caption = document.querySelector('#caption').value;
 
-  if (title || caption) {
-    addPhotoBtn.disabled = false;
-  } else {
-    addPhotoBtn.disabled = true;
-  }
+  addPhotoBtn.disabled = title || caption ? false : true;
 }
 
 function toggleViewFavs(e) {
@@ -120,10 +152,10 @@ function createCard(photo) {
 
   var src = photo.favorite ? `media/favorite-active.svg` : `media/favorite.svg`;
   var card = `<section class="card" data-id="${photo.id}">
-        <h2 contenteditable="true">${photo.title}</h2>
+        <h2 class="title" contenteditable="true">${photo.title}</h2>
         <figure>
           <img src=${photo.image} />
-          <figcaption contenteditable="true">
+          <figcaption class="caption" contenteditable="true">
             ${photo.caption}
           </figcaption>
         </figure>
