@@ -1,14 +1,14 @@
 .form {
   display: flex;
   flex-direction: column;
-  width: 40%;
   margin: auto;
+  width: 40%;
 }
 
 .input-text {
-  padding: 1em 0;
   border: 0;
   margin: 1em 0;
+  padding: 1em 0;
 }
 
 #image-input {
