@@ -1,4 +1,25 @@
+
 @media screen and (max-width: 1000px) {
+  .logo-text {
+    font-size: 5vw;
+  }
+
+  .form {
+    width: 80%;
+    padding: 5% 5%;
+  }
+
+  .cards-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    width: 46%;
+  }
+}
+
+@media screen and (max-width: 700px) {
   .header {
     flex-direction: column;
     padding: 0 5%;
@@ -17,10 +38,19 @@
   }
 
   .form {
-    width: 100%;
     padding: 10% 5%;
   }
 
-  /*.btn {
-  }*/
+  .cards-container {
+    flex-direction: column;
+    align-content: center;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .btn {
+    padding: 1em 10px;
+  }
 }
