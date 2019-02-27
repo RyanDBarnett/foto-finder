@@ -1,5 +1,5 @@
 
-@media screen and (max-width: 1000px) {
+@media screen and (min-width: 700px) and (max-width: 1000px) {
   .logo-text {
     font-size: 5vw;
   }
@@ -39,6 +39,7 @@
 
   .form {
     padding: 10% 5%;
+    width: 100%;
   }
 
   .cards-container {
