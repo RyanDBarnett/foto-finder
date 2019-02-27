@@ -3,6 +3,7 @@ const favoriteButton = document.querySelector('.favorites');
 const cardsContainer = document.querySelector('.cards-container');
 const fileInput = document.querySelector('#image-input');
 const form = document.querySelector('.form');
+const searchInput = document.querySelector('.search-input');
 const reader = new FileReader();
 
 let album = JSON.parse(localStorage.getItem('album')) || [];
@@ -12,6 +13,7 @@ addPhotoBtn.addEventListener('click', loadImg);
 favoriteButton.addEventListener('click', toggleViewFavs);
 fileInput.addEventListener( 'change', fileChangeHandler);
 form.addEventListener( 'keyup', formKeyHandler);
+searchInput.addEventListener('keyup', searchCards);
 cardsContainer.addEventListener('click', clickHandler);
 cardsContainer.addEventListener('mouseover', mouseOverHandler);
 cardsContainer.addEventListener('mouseout', mouseOutHandler);
@@ -170,7 +172,7 @@ function createCard(photo) {
           <img class="favorite" data-favorite="${photo.favorite}" src="${src}" alt="favorite button"/>
         </footer>
       </section>`
-  cardsContainer.innerHTML += card;
+  cardsContainer.insertAdjacentHTML('afterbegin', card);
   var indication = document.querySelector('.no-photo-indication');
   indication.classList.add('hide');
 }
@@ -286,3 +288,17 @@ function deactivateDelete(element) {
 function findPhoto(id) {
   return album.find( (photo) => photo.id === id);
 }
+
+function searchCards(e){
+  console.log(e)
+  var searchBarText = e.target.value;
+  var regex = new RegExp(searchBarText, "i");
+  var matchingIdeas = [];
+  clearCards();
+  for (let i = 0; i < album.length; i++) {
+    if(regex.test(album[i].title) || regex.test(ablum[i].caption)) {
+      matchingIdeas.push(album[i]);
+      createCard(album[i]);
+    }
+  }
+};
