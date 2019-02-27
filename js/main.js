@@ -290,7 +290,6 @@ function findPhoto(id) {
 }
 
 function searchCards(e){
-  console.log(e)
   var searchBarText = e.target.value;
   var regex = new RegExp(searchBarText, "i");
   var matchingIdeas = [];
