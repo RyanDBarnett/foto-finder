@@ -46,3 +46,16 @@ figcaption {
   margin: 1em 0;
   cursor: pointer;
 }
+
+footer {
+  background-color: #C2B2B4;
+}
+
+.no-photo-indication {
+  margin: 0;
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}

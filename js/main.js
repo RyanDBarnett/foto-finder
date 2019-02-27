@@ -14,6 +14,12 @@ cardsContainer.addEventListener('mouseover', mouseOverHandler);
 cardsContainer.addEventListener('mouseout', mouseOutHandler);
 fileInput.addEventListener( 'change', updateFileInputLabel);
 
+noPhotosIndication();
+
+function noPhotosIndication() {
+  console.log(cardsContainer.children);
+}
+
 function toggleViewFavs(e) {
   e.preventDefault();
   let btn = e.target;
@@ -116,6 +122,8 @@ function createCard(photo) {
         </footer>
       </section>`
   cardsContainer.innerHTML += card;
+  var indication = document.querySelector('.no-photo-indication');
+  indication.classList.add('hide');
 }
 
 function updateFileInputLabel(e) {
