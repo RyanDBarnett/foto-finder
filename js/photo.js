@@ -17,7 +17,9 @@ class Photo {
     this.saveToStorage();
   }
 
-  // updatePhoto() {}
+  updatePhoto() {
+    this.saveToStorage();
+  }
 
   toggleFavorite() {
     this.favorite = !this.favorite;

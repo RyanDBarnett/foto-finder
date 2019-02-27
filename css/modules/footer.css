@@ -12,20 +12,25 @@
   border: 2px solid #938284;
 }
 
-.card h2, .card figcaption {
+.title, .caption {
   font-size: 20px;
   color: #3E2A35;
   margin: 1em;
   font-weight: 600;
+  overflow-wrap: break-word;
+  overflow-y: scroll;
+}
+
+.title {
+  height: 25px;
+}
+
+.caption {
+  height: 100px;
 }
 
 .card figure {
   margin: 0;
-}
-
-figcaption {
-  height: 100px;
-  overflow: scroll;
 }
 
 .card img {
